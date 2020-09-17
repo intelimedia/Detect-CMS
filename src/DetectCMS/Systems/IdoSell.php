@@ -5,7 +5,7 @@ namespace DetectCMS\Systems;
  *
  * @author Przemysław Prekurat <p.prekurat@intelimedia.pl>
  */
-class Prestashop extends \DetectCMS\DetectCMS
+class IdoSell extends \DetectCMS\DetectCMS
 {
     /** @var string[] */
     public $methods;
@@ -28,24 +28,18 @@ class Prestashop extends \DetectCMS\DetectCMS
         $this->url = $url;
 
         $this->methods = array(
-            'checkResponseHeader',
             'checkHtmlHeader',
+            'checkHtmlBody',
         );
     }
 
     /**
-     * Check for powered-by header
      * @return [boolean]
      */
-    public function checkResponseHeader() {
-
-      if (is_array($this->home_headers)) {
-
-        foreach ($this->home_headers as $line) {
-          if (stripos($line, "powered-by") !== false && stripos($line, "PrestaShop") !== false) {
-            return true;
-          }
-        }
+    public function checkHtmlHeader()
+    {
+      if (preg_match("/<meta name=\"Author\" content=\"[^\"]+IdoSell/i", $this->home_html)) {
+          return true;
       }
 
       return false;
@@ -54,13 +48,11 @@ class Prestashop extends \DetectCMS\DetectCMS
     /**
      * @return bool
      */
-    public function checkHtmlHeader()
+    public function checkHtmlBody()
     {
-      if (preg_match("/<meta name=\"generator\" content=\"PrestaShop/i", $this->home_html)) {
-          return true;
-      }
-
-      if (strpos($this->home_html, 'var prestashop = {') !== false) {
+      if (stripos($this->home_html, "'iaiTracker'") !== false
+        || strpos($this->home_html, "n.agent='plidosell'") !== false
+      ) {
         return true;
       }
 

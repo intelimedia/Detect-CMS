@@ -28,7 +28,8 @@ class DetectCMS
         'Squarespace',
         'Typo3',
         'Prestashop',
-        'Shoper'
+        'Shoper',
+        'IdoSell'
     ];
 
     private $common_methods = ["generator_header", "generator_meta"];

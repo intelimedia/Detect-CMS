@@ -34,7 +34,7 @@ class Shoper extends \DetectCMS\DetectCMS
     }
 
     /**
-     * Check for Generator header
+     * Check for powered-by header
      * @return [boolean]
      */
     public function checkResponseHeader() {
