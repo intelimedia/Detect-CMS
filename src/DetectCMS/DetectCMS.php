@@ -26,7 +26,8 @@ class DetectCMS
         'Laravel',
         'Concrete5',
         'Squarespace',
-        'Typo3'
+        'Typo3',
+        'Prestashop'
     ];
 
     private $common_methods = ["generator_header", "generator_meta"];
